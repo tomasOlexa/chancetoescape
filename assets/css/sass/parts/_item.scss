@@ -1,0 +1,72 @@
+//ACCORD
+.item_accord{  
+  
+  border-radius: 4px;     
+
+  .btn_basic, .btn_big{
+    position: relative;
+    z-index: 2;    
+
+    .sico{
+      will-change: transform;
+      transition: transform .25s;
+    }
+  }
+
+  &.expanded &_head{
+    .sico{
+      transform: rotate(135deg);
+    }  
+  }
+
+  & + &{
+    border-top: 1px solid rgba($color, .2);
+  }
+
+  &_expand {
+    width: 100%;
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    align-items: start;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .4s;    
+    min-height: 0;   
+
+    > div{
+      min-height: 0;      
+    }
+  } 
+
+  &.expanded &_expand{
+    grid-template-rows: 1fr;
+  }
+
+  &_content{    
+    padding-top: 5px;
+    padding-bottom: 20px;
+  }
+
+  &_head{
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+
+    span{
+      display: block;
+      flex: 1 1 0%;
+      padding-right: 15px;
+      font-family: $font2;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: $lineheight18;
+    }
+
+    .sico{
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      transition: transform .4s;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "default_theme_js_css_sass_minifier",
+    "version": "0.1.0",
+    "description": "Default WP theme package based on HTML5 boilerplate theme includes GULP for minify CSS/SCSS/LESS/JS",
+    "main": "index.js",
+    "scripts": {},
+    "author": "Kristián Stroka",
+    "license": "ISC",
+    "devDependencies": {
+        "fibers": "^5.0.1",
+        "gulp": "^4.0.2",
+        "gulp-autoprefixer": "^8.0.0",
+        "gulp-clean-css": "^4.3.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-jsvalidate": "^5.0.0",
+        "gulp-rename": "^2.0.0",
+        "gulp-sass": "^5.1.0",
+        "gulp-uglify": "^3.0.2",
+        "sass": "^1.49.7",
+        "uglify-es": "^3.3.9"
+    },
+    "dependencies": {
+        "browser-sync": "^2.27.7"
+    }
+}

@@ -1,0 +1,26 @@
+.main{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: $space;
+  @include lgm{
+    overflow: hidden;
+
+  }
+  &_inner{
+    display: flex;
+    max-width: 1160px;
+    margin: auto;
+    width: 100%;
+    will-change: transform;
+    transition: transform .5s;
+
+    @include lgm{
+      max-width: 700px;
+    }
+  }
+
+  html.menuopen &_inner{
+    transform: translateX(-200px);
+  }
+}

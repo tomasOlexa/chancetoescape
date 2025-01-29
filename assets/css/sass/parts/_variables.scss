@@ -1,0 +1,110 @@
+$space: 10px;
+$layout_width_full: 1464px;
+$layout_width_max: 1620px;
+$layout_width: 1464px;
+$layout_width2: 1080px;
+$layout_width3: 860px;
+$layout_width4: 1300px;
+$layout_width5: 855px;
+$layout_width6: 940px;
+
+$layout_width_xlm: 900px;
+$layout_width_lgm: 570px;
+$layout_width_mdm: 400px;
+$layout_width_smm: 300px;
+$layout_space: 24px;
+$layout_space_xl: 24px;
+$layout_space_lg: 24px;
+$layout_space_wrapper: 20px;
+
+//Breakpoints
+$screen-min-min: 350px;
+$screen-ssm-min: 390px;
+$screen-sm-min: 578px;
+$screen-md-min: 768px;
+$screen-lg-min: 1101px;
+$screen-xl-min: 1361px;
+$screen-xxl-min: 1541px;
+$screen-xxxl-min: 1701px;
+
+//Breakpoints
+$screen-min-max: 349px;
+$screen-ssm-max: 389px;
+$screen-sm-max: 577px;
+$screen-md-max: 767px;
+$screen-lg-max: 1100px;
+$screen-xl-max: 1360px;
+$screen-xxl-max: 1540px;
+$screen-xxxl-max: 1700px;
+$screen-full-max: $layout_width_full;
+$screen-logo-max: 350px;
+
+//VARIABLES
+$mq_min: 319px;
+
+$font1: "Rubik", sans-serif;
+$font2: "Cinzel", sans-serif;
+
+$fontsize: 14px;
+$lineheight: 1.42857143;
+$fontweight: 400;
+$color: #353535;
+$background: #000;
+$font: $font1;
+$color1: #A68A5E;
+
+$c1: $color1;
+$c2: #9A7437;
+$c3: #9C9E9F;
+$c4: #B9B8B8;
+
+$colors: $c1, $c2, $c3, $c4;
+
+$c_grey1: #313131;
+$c_grey2: #191919;
+$colors_grey: $c_grey1, $c_grey2;
+
+//SOCIAL
+$c_fb: #3b5998;
+$c_tw: #00acee;
+$c_insta: #8a3ab9;
+
+$c_yt: #ff0000;
+$c_in: #0077b5;
+$c_mess: #006AFF;
+$c_wa: #25D366;
+$c_ok: #38A54A;
+$c_error: #C84F4F;
+
+
+$lineheight10: 1.31;
+$lineheight12: 14px;
+$lineheight12_em: 14/12;
+$lineheight13: 15/13;
+$lineheight14: 1.42857143;
+$lineheight15: 1.46688;
+$lineheight16: 22px;
+$lineheight16_em: 1.375;
+$lineheight18: 1.3333333;
+$lineheight20: 1.25;
+
+$grid_space: 20px;
+$grid_space_small: 12px;
+$grid_space_mid: 40px;
+$grid_space_big: 60px;
+
+$header_height: 80px;
+$header_offset: 80px;
+$header_height_xlm: 80px;
+$header_offset_xlm: 80px;
+$header_scrolled: 0px;
+$header_height_mobile: 70px;
+$header_offset_mobile: 70px;
+
+$topbar_height: auto;
+$topbar_height_mobile: auto;
+
+$zindex_header: 300;
+
+
+

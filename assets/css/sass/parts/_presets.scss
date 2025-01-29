@@ -1,0 +1,457 @@
+//DISPLAY
+.display{
+  @include createPair('d' , 'display', ('flex', 'block', 'inline-block', 'inline-flex', 'inline'), ('flex', 'block', 'iblock', 'iflex', 'inline'), ('lgm', 'lg'));
+}
+
+.font1{
+  font-family: $font1;
+}
+
+.zindex{
+  &5{
+    z-index: 5;
+    &_lgm{
+      @include lgm{
+        z-index: 5;
+      }
+    }
+  }
+
+  &10{
+    z-index: 10;
+  }
+
+  &15{
+    z-index: 15;
+  }
+
+  &20{
+    z-index: 20;
+  }
+}
+
+.bcolor{
+  border-color: $color;
+
+  @include createList('bcolor' , 'border-color', $colors);
+}
+
+.color{
+  color: $color;
+
+  @include createList('color' , 'color', $colors);
+
+  @include createList('color' , 'color', $colors, '_hover', ':hover');
+
+  @include createList('color' , 'color', $colors, '_strong strong');
+
+  @include createList('color_grey' , 'color', $colors_grey);
+
+  @include createList('color' , 'color', $colors, '_before', ':before');
+
+  &_white{
+    color: #fff;
+  }
+
+  &_white_hover:hover{
+    color: #fff;
+  }
+
+  &_primary{
+    color: var(--color-primary, $color1);
+  }
+
+  &_primary_strong{
+    strong{
+      color: var(--color-primary, $color1);  
+    }
+
+    h1,h2,h3,h4{
+      color: var(--color-primary, $color1); 
+    }
+  }
+
+  &_primary_anchor{
+    a:not([class]){
+      color: var(--color-primary, $color1);  
+    }    
+  }   
+}
+
+.c2_anchor{
+  a{
+    color: $c2
+  }
+}
+
+.c1_anchor_hover{
+  a:hover{
+    color: $c1
+  }
+}
+
+.stroke{
+  @include createList('stroke' , 'stroke', $colors);  
+
+  &_primary{
+    stroke: var(--color-primary, $color1);
+  }
+
+  &_white{
+    stroke: #fff
+  }
+}
+
+.bg{
+  @include createList('bg' , 'background-color', $colors);
+
+  @include createList('bg_grey' , 'background-color', $colors_grey);
+
+  @include createList('bg' , 'background-color', $colors, '_hover', ':hover');
+
+  @include createList('bg' , 'background-color', $colors, '_before', ':before');
+
+  @include createList('bg' , 'background-color', $colors, '_after', ':after');
+
+  &_white{
+    background-color: #fff;
+
+    &_lgm{
+      @include lgm{
+        background: #fff;
+      }
+    }
+  }
+
+  &_black{
+    background-color: #000;
+  }
+
+  &c{
+    background-color: $color;
+  }
+
+  &0{
+    background-color: $background;
+  }
+
+
+}
+
+
+.opa{
+
+  &0{
+    opacity: 0;
+  }
+
+  &1{
+    opacity: .1;
+  }
+
+  &4{
+    opacity: .4;
+  }
+  &5{
+    opacity: .5;
+  }
+  &6{
+    opacity: .6;
+  }
+  &7{
+    opacity: .7;
+  }
+  &8{
+    opacity: .8;
+  }
+}
+
+
+.flex{  
+  &-wrap{
+    flex-wrap: wrap;
+  }
+}
+
+/**clear**/
+.cf:after {
+  content:"";
+  display:table;
+  clear:both;
+}
+
+.clear {
+  clear:both;
+  font-size:1px;
+  height:0.01px;
+  line-height:1px;
+  margin:0;
+  padding:0;
+}
+
+/**HELP*/
+.text{
+  @include createPair('text_' , 'text-align', ('center', 'left', 'right'), '', ('xlm', 'lgm', 'lg', 'mdm', 'md', 'smm'));
+
+  &_result{
+    font-size: 25px;
+    letter-spacing: -.02em;
+    font-weight: 600;
+  }
+
+  &_uc{
+    text-transform: uppercase;
+  }
+
+  &_ul{
+    text-decoration: underline;
+  }
+
+  &_nowrap{
+    white-space: nowrap;
+  }
+
+  &_ul_hover:hover{
+    text-decoration: underline;  
+  }
+
+  &_ul_nohover:not(:hover){
+    text-decoration: underline;  
+  }
+
+  @include createList('text_w' , 'font-weight', (100,200,300,400,500,600,700,800,900), '00');
+
+  &_s12{
+    font-size: 12px;
+    line-height: $lineheight12;
+  }
+
+  &_s14{
+    font-size: 14px;
+    line-height: $lineheight14;
+  }
+
+  &_s15{
+    font-size: 15px;
+    line-height: $lineheight15;
+  }
+
+  &_s16{
+    font-size: 16px;
+    line-height: $lineheight16;
+  }
+
+  &_fs16{
+    font-size: 16px;
+  }
+
+  &_s18{
+    font-size: 18px;
+    line-height: $lineheight18;
+  }
+
+  &_s20{
+    font-size: 20px;
+    line-height: $lineheight20;
+  }
+
+  &_wrap{
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+}
+
+.wmax100p_img img{
+  max-width: 100%;
+}
+
+.height_auto_img img{
+  height: auto;
+}
+
+.wmax{
+  $v1: ( '160px',  '660px', '850px', '980px', '1350px', '80%', '100%');
+  $v2: (160, 660, 850, 980, 1350, '80p', '100p');
+  @include createPair('wmax' , 'max-width', $v1 , $v2, ('lgm', 'lg', 'mdm', 'md', 'smm'));  
+}
+
+.wmin{
+  $v1: ('80px', '120px', '100%');
+  $v2: (80, 120, '100p');
+  @include createPair('wmin' , 'min-width', $v1 , $v2, ('lgm', 'lg', 'mdm'));  
+}
+
+.w{
+  $v1: ('60px', '150px', '160px', '300px', '370px', 'auto', '100%', 'fit-content');
+  $v2: (60, 150, 160, 300, 370, 'auto', '100p', 'fit');
+  @include createPair('w' , 'width', $v1 , $v2, ('lgm', 'lg', 'mdm', 'md'));  
+}
+
+.h{
+  @include createPair('h' , 'height', ('auto', '100%'), ('auto', '100p'), ('lgm', 'lg', 'mdm'));  
+}
+
+.v{
+  &m{
+    vertical-align: middle;
+  }
+}
+
+.fill{
+  &1{
+    fill: $color1;
+  }
+}
+
+.wh{
+
+  &8{
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+  }
+
+  &9{
+    width: 9px;
+    height: 9px;
+    flex: 0 0 9px;
+  }
+
+  &12{
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+  }
+
+  &14{
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+  }
+
+  &16{
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+  }
+
+  &18{
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+  }
+
+  &22{
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+  }
+
+  &75{
+    width: 75px;
+    height: 75px;
+    flex: 0 0 75px;
+  }
+}
+
+/***FLOATS***/
+.fl{
+  float: left;
+}
+
+.fr{
+  float: right;
+}
+
+/*RELATIVE*/
+.pos_rel{
+  position: relative;
+}
+
+.pos_abs{
+  position: absolute;
+}
+
+.block{
+  &_center{
+    margin-left: auto;
+    margin-right: auto;
+
+    @include lgm{
+      &_lgm{
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @include mdm{
+      &_mdm{
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
+  &_right{
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  @include lgm{
+    &-lgm{
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.hidden{
+  display: none !important;
+}
+
+.img_block{
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.hide{  
+  @include createPair('hide' , 'display', ('none !important'), (''), ('xlm', 'lgm', 'lg', 'md', 'mdm'), 'ignore');
+
+  &_normal{
+    display: none;
+  }
+}
+
+.show{
+  &_xlm{
+    @include xl {
+      display: none !important;
+    }
+  }
+
+  &_lgm{
+    @include lg {
+      display: none !important;
+    }
+  }
+
+  &_mdm{
+    @include md {
+      display: none !important;
+    }
+  }
+}
+
+.oh{
+  overflow: hidden;
+
+  &c{
+    overflow: clip;
+  }
+
+  &cx{
+    overflow-x: clip;
+  }
+}

@@ -1,0 +1,96 @@
+.header {
+	-ms-grid-column: 1;
+	-ms-grid-row: 1;
+	grid-column: 1;
+	grid-row: 1;
+
+	@include lgm {
+		position: fixed;
+		right: 0;
+		top: 0;
+		z-index: $zindex_header;
+	}
+
+	&_button {
+		@include button-reset;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 46px;
+		height: 46px;
+		color: #999;
+	}
+
+	&_cover {
+		@include lgm {
+			@include button-reset;
+			@include abs-100;
+			position: fixed;
+			background-color: rgba(#000, 0.5);
+			transition: opacity 0.5s;
+		}
+	}
+	@include lgm {
+		html:not(.menuopen) &_cover {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+
+	&_inner {
+		width: 100%;
+		@include lgm {
+			position: fixed;
+			top: 0;
+			right: 0;
+			height: 100%;
+			width: 300px;
+			background-color: #111;
+			transition: transform 0.5s;
+		}
+	}
+	@include lgm {
+		html:not(.menuopen) &_inner {
+			transform: translateX(100%);
+		}
+	}
+}
+
+.nav {
+	height: 100%;
+	overflow-x: hidden;
+	padding: 80px 0 50px 0;
+	@include lg {
+		padding: 20px 0 20px 0;
+	}
+}
+
+.topmenu {
+	@include list-reset;
+	color: rgb(204, 204, 204);
+	@include lg {
+		display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    justify-content: center;
+	}
+	li {
+		@include lgm {
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+		}
+	}
+
+	a {
+		display: block;
+		font-weight: 300;
+		font-size: 20px;
+		line-height: $lineheight20;
+		padding: 10px 20px;
+		transition: color 0.25s, background 0.25s;
+		color: #fff;
+	}
+
+	a:hover {
+		background: #333;
+		color: #fff;
+	}
+}

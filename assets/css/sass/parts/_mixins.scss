@@ -1,0 +1,501 @@
+$scrimStops: 0% 0%, 26.2% 19%, 45.9% 34%, 61.8% 47%, 72.2% 56.5%, 80.6% 65%, 87.4% 73%, 92.5% 80.2%, 95.8% 86.1%, 97.9% 91%, 99.2% 95.2%, 99.8% 98.2%, 100% 100%;
+
+@function getColorStop($colorTo, $colorFrom, $weight, $stop) {
+  @return mix($colorFrom, $colorTo, $weight) $stop;
+}
+
+@function getColorStops($colorTo, $colorFrom) {
+  $stops: ();
+  @each $scrimStop in $scrimStops {
+    $stops: append($stops, getColorStop($colorTo, $colorFrom, nth($scrimStop, 1), nth($scrimStop, 2)), comma)
+  }
+  @return $stops;
+}
+
+@function scrim-linear-gradient($args...) {
+  @if (length($args) == 2) {
+    @return linear-gradient(#{getColorStops(nth($args, 1), nth($args, 2))});
+  }
+  @return linear-gradient(#{nth($args, 1)}, #{getColorStops(nth($args, 2), nth($args, 3))});
+}
+
+// =============================================================================
+// String Replace
+// =============================================================================
+
+@function str-replace($string, $search, $replace: "") {
+	$string: '' + $string;
+	$index: str-index($string, $search);
+
+	@if $index {
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+
+	@return $string;
+}
+
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+	$src: null;
+
+	$extmods: (
+		eot: "?",
+		svg: "#" + str-replace($name, " ", "_")
+	);
+
+	$formats: (
+		otf: "opentype",
+		ttf: "truetype"
+	);
+
+	@each $ext in $exts {
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+		$src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+	}
+
+	@font-face {
+		font-family: quote($name);
+		font-style: $style;
+		font-weight: $weight;
+		src: $src;
+	}
+}
+
+@mixin bgarrow($color){
+  $color: str-replace(#{$color}, '#', ''); 
+	background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23#{$color}' preserveAspectRatio='none' viewBox='0 0 10 10' width='10' height='10' %3E%3Cpath d='M0,0 10,5 0,10'/%3E%3C/svg%3E");
+}
+
+@mixin bgarrow_left($color){
+  $color: str-replace(#{$color}, '#', ''); 
+	background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23#{$color}' preserveAspectRatio='none' viewBox='0 0 10 10' width='10' height='10' %3E%3Cpath d='M10,0 10,10 0,5'/%3E%3C/svg%3E");
+}
+
+@mixin bgarrow_right($color){
+  $color: str-replace(#{$color}, '#', ''); 
+	background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23#{$color}' preserveAspectRatio='none' viewBox='0 0 10 10' width='10' height='10' %3E%3Cpath d='M0,0 10,5 0,10'/%3E%3C/svg%3E");
+}
+
+@mixin bgarrow_bottom_half($color){
+  $color: str-replace(#{$color}, '#', ''); 
+	background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23#{$color}' preserveAspectRatio='none' viewBox='0 0 10 10' width='10' height='10' %3E%3Cpath d='M0,0 0,10 10,0'/%3E%3C/svg%3E");
+}
+
+@mixin bgarrow_bottom($color){
+  $color: str-replace(#{$color}, '#', ''); 
+	background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23#{$color}' preserveAspectRatio='none' viewBox='0 0 10 10' width='10' height='10' %3E%3Cpath d='M0,0 10,0 5,10'/%3E%3C/svg%3E");
+}
+
+@mixin bgarrow_top($color){
+  $color: str-replace(#{$color}, '#', ''); 
+	background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23#{$color}' preserveAspectRatio='none' viewBox='0 0 10 10' width='10' height='10' %3E%3Cpath d='M0,10 10,10 5,0'/%3E%3C/svg%3E");
+}
+
+@function bgarrow_bottom_shape($color){
+  $color: str-replace(#{$color}, '#', ''); 
+	@return url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23#{$color}' preserveAspectRatio='none' viewBox='0 0 10 10' width='10' height='10' %3E%3Cpath d='M0,0 10,0 5,10'/%3E%3C/svg%3E");
+}
+
+@mixin arrow_r(){
+ // $color: str-replace(#{$color}, '#', ''); 
+	//background-repeat: no-repeat;
+  mask: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' preserveAspectRatio='none' viewBox='0 0 6 9' width='6' height='9' %3E%3Cpath d='M0,1.125l1.223,-1.125l4.777,4.5l-4.777,4.5l-1.223,-1.125l3.6,-3.375l-3.6,-3.375Z'/%3E%3C/svg%3E");
+}
+
+// =============================================================================
+// Media queries
+// =============================================================================
+
+@mixin ssm {
+	@media (min-width: #{$screen-ssm-min}) {
+		@content;
+	}
+}
+
+@mixin sm {
+	@media (min-width: #{$screen-sm-min}) {
+		@content;
+	}
+}
+ 
+@mixin md {
+	@media (min-width: #{$screen-md-min}) {
+		@content;
+	}
+}
+ 
+@mixin lg {
+	@media (min-width: #{$screen-lg-min}) {
+		@content;
+	}
+}
+ 
+@mixin xl {
+	@media (min-width: #{$screen-xl-min}) {
+		@content;
+	}
+}
+
+@mixin xxl{
+	@media (min-width: #{$screen-xxl-min}) {
+		@content;
+	}
+}
+
+
+//MAX WIDTH
+@mixin minm {
+	@media (max-width: #{$screen-min-max}) {
+		@content;
+	}
+}
+
+@mixin ssmm {
+	@media (max-width: #{$screen-ssm-max}) {
+		@content;
+	}
+}
+
+@mixin smm {
+	@media (max-width: #{$screen-sm-max}) {
+		@content;
+	}
+}
+ 
+@mixin mdm {
+	@media (max-width: #{$screen-md-max}) {
+		@content;
+	}
+}
+ 
+@mixin lgm {
+	@media (max-width: #{$screen-lg-max}) {
+		@content;
+	}
+}
+ 
+@mixin xlm {
+	@media (max-width: #{$screen-xl-max}) {
+		@content;
+	}
+}
+
+@mixin xxlm {
+	@media (max-width: #{$screen-xxl-max}) {
+		@content;
+	}
+}
+
+@mixin xxxlm {
+	@media (max-width: #{$screen-xxxl-max}) {
+		@content;
+	}
+}
+
+@mixin fullm {
+	@media (max-width: #{$screen-full-max}) {
+		@content;
+	}
+}
+
+@keyframes sk-pulse {
+  0% {
+    transform: scale(1); 
+		opacity: .8;
+  } 100% {
+    transform: scale(1.6);
+    opacity: 0; 
+  }
+}
+
+@mixin loader{
+  width: 31px;
+  height: 31px;  
+  background-color: $c_orange;    
+	border-radius: 50%;
+  animation: sk-pulse 1.2s infinite cubic-bezier(0.455, 0.03, 0.515, 0.955); 
+}
+
+@mixin placeholders($color, $opacity, $fw: 400, $transition: false, $class: ''){   
+  &#{$class}::-webkit-input-placeholder{color: rgba($color, $opacity); opacity: 1; font-weight: $fw; @if $opacity == 0{font-size: 0;}; @if $transition{transition: #{$transition} .25s} }
+  &#{$class}::-moz-placeholder{color: rgba($color, $opacity); opacity: 1; font-weight: $fw; @if $opacity == 0{font-size: 0;}; @if $transition{transition: #{$transition} .25s}  }
+  &#{$class}:-ms-input-placeholder{color: rgba($color, $opacity); opacity: 1; font-weight: $fw; @if $opacity == 0{font-size: 0;}; @if $transition{transition: #{$transition} .25s}  }
+  &#{$class}:-moz-placeholder{color: rgba($color, $opacity); opacity: 1; font-weight: $fw; @if $opacity == 0{font-size: 0;}; @if $transition{transition: #{$transition} .25s}  }
+}
+
+@mixin hide-input(){
+  position: absolute;
+  left: 0;
+  top: 0;  
+  width: 1px;
+  height: 1px;
+  border: 0;
+  outline: none;
+  opacity: 0;
+}
+
+@mixin createList($s1, $property, $values, $suffix: '', $param: '') {
+	@each $value in $values {
+		@at-root #{'.' + $s1 + (index($values, $value)) + $suffix + $param}{
+			#{$property}: #{$value};
+		}
+	} 	
+} 
+
+@mixin createLocalVar($s1, $property, $values) {
+	@each $value in $values {
+		@at-root #{'.' + $s1 + (index($values, $value))}{
+			#{'--' + $property}: #{$value};
+		}
+	} 	
+} 
+
+@mixin createLocalVarRGB($s1, $property, $values, $single: '') {
+	@if $single != '' {
+		@at-root #{'.' + $s1}{
+			#{'--' + $property}: #{hex-to-rgb($values)};
+		}
+	} @else {
+		@each $value in $values {
+			@at-root #{'.' + $s1 + (index($values, $value))}{
+				#{'--' + $property}: #{hex-to-rgb($value)};
+			}
+		} 
+	}	
+} 
+
+@mixin createPair($s1, $property, $values, $replace, $resolutions: '', $ignore: '') {  
+	$values: $values;
+	
+	@if $ignore == '' {
+		@if $replace == '' {
+			$replace: $values;
+		}
+	}
+
+	@each $value in $values {
+		@at-root #{'.' + $s1 + nth($replace, index($values, $value))}{
+			#{$property}: #{$value};
+		}
+	} 
+
+	@if $resolutions != '' {
+		@each $res in $resolutions {
+
+			//XLM
+			@if $res == 'xlm' {
+				@include xlm{
+					@each $value in $values {
+						@at-root #{'.' + $s1 + nth($replace, index($values, $value)) + '_' + $res}{
+							#{$property}: #{$value};
+						}
+					} 	
+				}
+			}
+
+			//LGM
+			@if $res == 'lgm' {
+				@include lgm{
+					@each $value in $values {
+						@at-root #{'.' + $s1 + nth($replace, index($values, $value)) + '_' + $res}{
+							#{$property}: #{$value};
+						}
+					} 	
+				}
+			}
+
+			//LG
+			@if $res == 'lg' {
+				@include lg{
+					@each $value in $values {
+						@at-root #{'.' + $s1 + nth($replace, index($values, $value)) + '_' + $res}{
+							#{$property}: #{$value};
+						}
+					} 	
+				}
+			}
+
+			//MD
+			@if $res == 'md' {
+				@include md{
+					@each $value in $values {
+						@at-root #{'.' + $s1 + nth($replace, index($values, $value)) + '_' + $res}{
+							#{$property}: #{$value};
+						}
+					} 	
+				}
+			}
+
+			//MDM
+			@if $res == 'mdm' {
+				@include mdm{
+					@each $value in $values {
+						@at-root #{'.' + $s1 + nth($replace, index($values, $value)) + '_' + $res}{
+							#{$property}: #{$value};
+						}
+					} 	
+				}
+			}
+
+			//SMM
+			@if $res == 'smm' {
+				@include smm{
+					@each $value in $values {
+						@at-root #{'.' + $s1 + nth($replace, index($values, $value)) + '_' + $res}{
+							#{$property}: #{$value};
+						}
+					} 	
+				}
+			}
+		} 		
+	}	
+}  
+
+@mixin createGrad($s1,$dir, $values, $s2: '') {
+	@each $value in $values {
+		@at-root #{'.' + $s1 + (index($values, $value)) + $s2}{
+			background: linear-gradient(#{$dir}, rgba($value,0) 0%,rgba($value,1) 100%); 
+		}
+	} 	
+} 
+
+@mixin createGradHalf($s1,$dir, $values, $s2: '') {
+	@each $value in $values {
+		@at-root #{'.' + $s1 + (index($values, $value)) + $s2}{
+			background: linear-gradient(#{$dir}, rgba($value,0) 20%,rgba($value,1) 90%, rgba($value,1) 100%); 
+		}
+	} 	
+} 
+
+@mixin createGradHalf2($s1,$dir, $values, $s2: '') {
+	@each $value in $values {
+		@at-root #{'.' + $s1 + (index($values, $value)) + $s2}{
+			background: linear-gradient(#{$dir}, rgba($value,0) 50%,rgba($value,1) 90%, rgba($value,1) 100%); 
+			@include lgm{
+				background: linear-gradient(#{$dir}, rgba($value,0) 0%,rgba($value,1) 90%, rgba($value,1) 100%); 	
+			}
+		}
+	} 	
+} 
+
+@mixin title_big{
+	display: block;
+	margin-top: 0;
+	margin-bottom: 0;
+  font-weight: 700;
+	font-size: 110px;
+	font-family: $font2;
+	line-height: 1;
+	font-size: clamp(38px, 11vmin, 110px);
+	min-height: .000001vw;
+
+	@include lgm{	
+	}
+}
+
+@mixin title_h1{
+	display: block;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-weight: 300;
+	font-size: 60px;
+	font-family: $font2;
+	line-height: 1.1;
+	font-size: clamp(34px, 4vw, 60px);
+	min-height: .000001vw;	
+}
+
+@mixin title_h2{
+	display: block;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-weight: 300;
+	font-size: 40px;
+	font-family: $font2;
+	line-height: 1.1;
+	font-size: clamp(28px, 3vw, 40px);
+	min-height: .000001vw;	
+}
+
+@mixin title_h3{
+	display: block;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-weight: 700;
+	font-size: 40px;
+	font-family: $font2;
+	line-height: 1.1;
+	font-size: clamp(30px, 3vw, 40px);
+	min-height: .000001vw;	
+}
+
+@mixin title_h4{
+	display: block;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-weight: 700;
+	font-size: 30px;
+	font-family: $font2;
+	line-height: 1.1;
+	font-size: clamp(19px, 2.5vw, 30px);
+	min-height: .000001vw;	
+}
+
+@mixin title_h5{
+	display: block;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-weight: 700;
+	font-size: 24px;
+	font-family: $font2;
+	line-height: (32/24);
+	font-size: clamp(18px, 2.5vw, 24px);
+	min-height: .000001vw;	
+}
+
+@mixin title_h6{
+	display: block;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-weight: 700;
+	font-size: 20px;
+	font-family: $font2;
+	line-height: 1.2;
+	font-size: clamp(16px, 2.5vw, 20px);
+	min-height: .000001vw;	
+}
+
+
+@mixin list-circle{
+	@include list-reset;
+
+	li{
+		padding-left: 24px;
+		&::before{
+			margin-left: -24px;
+			content: '';
+			position: absolute;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			border: 2px solid $c2;
+			margin-top: calc(var(--line-height, .75em)/2 - 6px);
+		}
+	}
+
+	li + li{
+		margin-top: .7em;
+	}
+}
+
+
